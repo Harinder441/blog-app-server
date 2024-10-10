@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 const routes = require("./routes");
 const errorHandler = require("./middleware/errorHandler");
 const config = require("./config/config");
+const cors = require("cors");
 const app = express();
 const PORT = config.port;
+
 
 const fileupload = require("express-fileupload");
 app.use(fileupload());
@@ -12,6 +14,7 @@ app.use(fileupload());
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb'}));
 
+app.use(cors());
 
 // Connect to MongoDB
 console.log("url",config.mongoose.url);

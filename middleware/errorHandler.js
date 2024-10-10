@@ -9,7 +9,7 @@ const errorHandler = (err, req, res, next) => {
     return res.status(400).json({ message: "Duplicate key error" });
   }
 
-  res.status(500).json({ message: "Internal server error" });
+  res.status(500).json({ message: err.message || "Internal server error" });
 };
 
 module.exports = errorHandler;
