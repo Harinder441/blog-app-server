@@ -8,8 +8,8 @@ router.use(locationMiddleware);
 
 router.post('/', authMiddleware.authenticateToken, locationMiddleware, blogController.createBlog);
 router.put('/:id', authMiddleware.authenticateToken, locationMiddleware, blogController.updateBlog);
-router.get('/', authMiddleware.authenticateToken,locationMiddleware, blogController.getBlogsByLocation);
-router.get('/:id', authMiddleware.authenticateToken, blogController.getBlogById);
+router.get('/',locationMiddleware, blogController.getBlogsByLocation);
+router.get('/:id', blogController.getBlogById);
 router.delete('/:id', authMiddleware.authenticateToken, blogController.deleteBlog);
 router.post('/preview', authMiddleware.authenticateToken, locationMiddleware, blogController.previewBlog);
 
