@@ -11,12 +11,14 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "express": "^5.0.1",
-    "mongoose": "^8.7.1",
+    "aws-sdk": "^2.1691.0",
     "bcrypt": "^5.1.1",
-    "jsonwebtoken": "^9.0.2",
     "dotenv": "^16.4.5",
-    "request-ip": "^3.3.0",
-    "geoip-lite": "^1.4.10"
+    "express": "^5.0.1",
+    "express-fileupload": "^1.5.1",
+    "geoip-lite": "^1.4.10",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.1",
+    "request-ip": "^3.3.0"
   }
 }

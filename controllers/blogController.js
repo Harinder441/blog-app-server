@@ -1,17 +1,12 @@
 const blogService = require('../services/blogService');
-const { getClientIp } = require('request-ip');
-const geoip = require('geoip-lite');
 
 exports.createBlog = async (req, res, next) => {
   try {
     const { title, content, tags } = req.body;
     const userId = req.user.id;
-    const ip = getClientIp(req);
-    // console.log("ip",ip);
-    const geo = geoip.lookup(ip);
-    const location = geo ? geo.country : 'Unknown';
+    const location = req.userLocation;
 
-    const blog = await blogService.createBlog({ title, content, tags, userId, location });
+    const blog = await blogService.createBlog({ title, content, tags, userId, location, media });
     res.status(201).json(blog);
   } catch (error) {
     next(error);
@@ -24,7 +19,7 @@ exports.updateBlog = async (req, res, next) => {
     const { title, content, tags } = req.body;
     const userId = req.user.id;
 
-    const updatedBlog = await blogService.updateBlog(id, { title, content, tags }, userId);
+    const updatedBlog = await blogService.updateBlog(id, { title, content, tags, media }, userId);
     res.json(updatedBlog);
   } catch (error) {
     next(error);
@@ -33,10 +28,7 @@ exports.updateBlog = async (req, res, next) => {
 
 exports.getBlogsByLocation = async (req, res, next) => {
   try {
-    const ip = getClientIp(req);
-    const geo = geoip.lookup(ip);
-    const location = geo ? geo.country : 'Unknown';
-
+    const location = req.userLocation;
     const { page = 1, limit = 10, tags } = req.query;
     const blogs = await blogService.getBlogsByLocation(location, { page, limit, tags });
     res.json(blogs);
@@ -62,6 +54,19 @@ exports.deleteBlog = async (req, res, next) => {
 
     await blogService.deleteBlog(id, userId);
     res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.previewBlog = async (req, res, next) => {
+  try {
+    const { title, content, tags } = req.body;
+    const userId = req.user.id;
+    const location = req.userLocation;
+
+    const previewBlog = await blogService.previewBlog({ title, content, tags, userId, location });
+    res.json(previewBlog);
   } catch (error) {
     next(error);
   }
