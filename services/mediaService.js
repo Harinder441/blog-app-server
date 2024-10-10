@@ -5,7 +5,8 @@ const config = require('../config/config');
 AWS.config.update({
   accessKeyId: config.aws.accessKeyId,
   secretAccessKey: config.aws.secretAccessKey,
-  region: config.aws.region
+  region: config.aws.region,
+  s3ForcePathStyle: true
 });
 
 const s3 = new AWS.S3();
