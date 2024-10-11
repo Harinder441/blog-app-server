@@ -2,7 +2,7 @@ const blogService = require('../services/blogService');
 
 exports.createBlog = async (req, res, next) => {
   try {
-    const { title, content, tags } = req.body;
+    const { title, content, tags,media } = req.body;
     const userId = req.user.id;
     const location = req.userLocation;
 
@@ -16,7 +16,7 @@ exports.createBlog = async (req, res, next) => {
 exports.updateBlog = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { title, content, tags } = req.body;
+    const { title, content, tags,media } = req.body;
     const userId = req.user.id;
 
     const updatedBlog = await blogService.updateBlog(id, { title, content, tags, media }, userId);
